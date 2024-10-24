@@ -11,8 +11,10 @@ function App() {
   const [todos, setTodos] = useState([]);
   const[todoValue, setTodoValue] = useState('');
   const[showModel, setShowModel] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState(""); // this was made for the popup remainder box to show what task is needed to complete
 
-  const handleOpenModel = () => {
+  const handleOpenModel = (index) => {
+    setSelectedTodo(todos[index]);
     setShowModel(true);
     console.log("Modal opened");
   }
@@ -65,7 +67,7 @@ function App() {
     <>
       <TodoInput todoValue={todoValue} setTodoValue={setTodoValue} handleAddTodos={handleAddTodos}/>
       <TodoList  handleOpenModel={handleOpenModel} handleDeleteTodo = {handleDeleteTodo} handleEditTodo = {handleEditTodo} todos={todos}/>
-      <PopUpBoxModel show = {showModel} onClose={handleCloseModel} />
+      <PopUpBoxModel show = {showModel} onClose={handleCloseModel} task = {selectedTodo}/>
 
     </>
   );

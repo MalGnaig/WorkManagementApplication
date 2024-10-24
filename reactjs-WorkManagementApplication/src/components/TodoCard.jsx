@@ -18,11 +18,12 @@ export default function TodoCard(props) {
         </button>
 
         <button style = {{margin: '5px'}} onClick={() => {
-          handleOpenModel()}}>
+          handleOpenModel(index)}}>
         <i className="fa-solid fa-clock"></i>
         </button>
 
       </div>
     </li>  
+    
   )
 }

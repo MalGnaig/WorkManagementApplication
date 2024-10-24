@@ -166,7 +166,21 @@ p {
 }
 
 
-/* Filename: App.css */
+/* Styling the timer display area */
+.timer-display {
+  font-size: 2.5rem; /* Large font for clock style */
+  font-weight: bold; /* Bold font */
+  color: #003366; /* Dark blue color */
+  background-color: #f0f8ff; /* Light background color to look like a clock */
+  border: 3px solid #003366; /* Dark blue border */
+  border-radius: 10px; /* Rounded corners to resemble a clock */
+  padding: 15px 20px; /* Padding for spacing */
+  margin: 20px 0;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text within the div */
+}
+
 
 
 

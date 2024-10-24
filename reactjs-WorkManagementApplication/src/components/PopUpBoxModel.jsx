@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function PopUpBoxModel({ show, onClose }) {
+export default function PopUpBoxModel({ show, onClose, task}) {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -15,30 +15,45 @@ export default function PopUpBoxModel({ show, onClose }) {
     setHours(0);
     setMinutes(0);
     setSeconds(0);
-    onClose();
+    setRemainingTime(totalSecs);
   };
 
   const resetTimer = () => {
     setTotalSecs(0);
     setIsCounting(false);
+    setRemainingTime(0);
+  }
+
+  function convertTime(secondsRemaining) {
+    let hours = Math.floor(secondsRemaining/3600);
+    let minutes = Math.floor((secondsRemaining - (hours*3600))/60);
+    let seconds = Math.floor((secondsRemaining - (hours*3600) - (minutes*60)));
+
+    const timeString = hours.toString().padStart(2, '0') + ':' + 
+    minutes.toString().padStart(2, '0') + ':' + 
+    seconds.toString().padStart(2, '0');
+
+    return timeString;
   }
 
 
   useEffect(() => {
     let interval = null;
+
     if (isCounting && totalSecs > 0) {
       interval = setInterval(() => {
         setTotalSecs((prevSeconds) => {
-          if(prevSeconds === 60){
-            alert("1 minute remaining");
-          } else if (prevSeconds === 10) {
-            alert("10 seconds remaining");
+          if(prevSeconds === 300){
+            alert("5 minute remaining for: " + task);
+          } else if (prevSeconds === 60) {
+            alert("1 minute remaining for: " + task);
           }
+          setRemainingTime(prevSeconds);
           return prevSeconds - 1; // Decrease by 1 second
         });
       }, 1000); // Run every 1 second
     } else if (isCounting && totalSecs === 0) {
-      alert("Timer has finished");
+      alert("Timer has finished for: " + task);
       setIsCounting(false); // Stop the countdown
     }
   
@@ -61,7 +76,7 @@ export default function PopUpBoxModel({ show, onClose }) {
       <div className="modal-content">
         <h1>Set Tasks Countdown</h1>
         <div value= {{remainingTime}}>
-          <label> Remaining Time: </label>
+          <label> Input time: </label>
           
         </div>
         <div>
@@ -97,6 +112,10 @@ export default function PopUpBoxModel({ show, onClose }) {
 
         <div style={{ display: "flex" }}>
           <button onClick= {resetTimer} style={{marginLeft: "auto"}}> Reset Timer </button>
+        </div>
+
+        <div className = "timer-display">
+          <label>Time remaining: {convertTime(remainingTime)}</label>
         </div>
         
 
