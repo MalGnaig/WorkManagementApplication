@@ -12,7 +12,17 @@ export default function PopUpBoxModel({ show, onClose }) {
     const total = (hours * 3600) + (minutes * 60) + seconds;
     setTotalSecs(total);
     setIsCounting(true);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+    onClose();
   };
+
+  const resetTimer = () => {
+    setTotalSecs(0);
+    setIsCounting(false);
+  }
+
 
   useEffect(() => {
     let interval = null;
@@ -86,7 +96,7 @@ export default function PopUpBoxModel({ show, onClose }) {
         </div>
 
         <div style={{ display: "flex" }}>
-          <button style={{marginLeft: "auto"}}> Reset Timer </button>
+          <button onClick= {resetTimer} style={{marginLeft: "auto"}}> Reset Timer </button>
         </div>
         
 
